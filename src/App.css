@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+body, html, #root{
+  height: 100%;
+}
+
+.userName{
+  display: none;
+  top: 0;
+  left:100%;
+  justify-content: center;
+  align-items: center;
+}
