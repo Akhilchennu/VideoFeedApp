@@ -31,8 +31,8 @@ function Dashboard() {
             window.scrollTo(0, scrollHeight)
             lastScrolled = scrollToTop <= 0 ? 0 : scrollToTop;
             setTimeout(() => { if(scrolled) scrolled=false }, 500);
+            event.stopPropagation();
         }
-
     }
 
 useEffect(() => {
