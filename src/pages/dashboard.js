@@ -17,7 +17,7 @@ function Dashboard() {
     }
 
     const setScrollHeight = async (event) => {
-        console.log(lastScrolled)
+        event.preventDefault();
         if (!scrolled) {
             scrolled=true;
             let scrollToTop = window.pageYOffset || document.documentElement.scrollTop;
