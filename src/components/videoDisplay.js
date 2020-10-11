@@ -1,93 +1,135 @@
 import React, { useState } from 'react';
 
-function VideoDisplay(props){
+function VideoDisplay(props) {
 
-    const [startx, setStartx] = useState(0);
+    // const [startx, setStartx] = useState(null);
+    // const [starty, setStarty] = useState(null);
+
+    let startx=null;
+    let starty=null;
 
     const onTouchStarting = (event) => {
-        setStartx(event.touches[0].clientx);
+        startx=event.touches[0].clientx;
+        starty=event.touches[0].clienty;
     }
 
     const onTouchMoving = (event) => {
-        let touch = event.touches[0];
-        let change = touch.clientx - startx;
-        let baseTarget = document.getElementById(`${event.target.id}`);
-        let target = document.getElementById(`user${event.target.id.substring(5)}`)
-        if (change < 0) {
-            return
+        // let touch = event.touches[0];
+        // let change = touch.clientx - startx;
+        // let baseTarget = document.getElementById(`${event.target.id}`);
+        // let target = document.getElementById(`user${event.target.id.substring(5)}`)
+        // if (change < 0) {
+        //     return
+        // }
+        // baseTarget.style.left = '-' + change + 'px';
+        // target.style.display = 'block';
+        // target.style.left = ((window.screen.width) - change) + 'px';
+        if (startx === null) {
+            return;
         }
-        baseTarget.style.left = '-' + change + 'px';
-        target.style.display = 'block';
-        target.style.left = ((window.screen.width) - change) + 'px';
+
+        if (starty === null) {
+            return;
+        }
+        let currentX = event.touches[0].clientX;
+        let currentY = event.touches[0].clientY;
+
+        let diffX = startx - currentX;
+        let diffY = starty - currentY;
+
+        if (Math.abs(diffX) > Math.abs(diffY)) {
+            // sliding horizontally
+            if (diffX > 0) {
+                // swiped left
+                alert("swiped left");
+            } else {
+                // swiped right
+                alert("swiped right");
+            }
+        } else {
+            // sliding vertically
+            if (diffY > 0) {
+                // swiped up
+                alert("swiped up");
+            } else {
+                // swiped down
+                alert("swiped down");
+            }
+        }
+
+       starty=null;
+       startx=null;
+
+        event.preventDefault();
     }
 
     const onTouchEnding = (event) => {
-        let change = startx - event.changedTouches[0].clientx;
-        let threshold = window.screen.width / 3;
-        let baseTarget = document.getElementById(`${event.target.id}`);
-        let target = document.getElementById(`user${event.target.id.substring(5)}`)
-        if (change < threshold) {
-            baseTarget.style.left = 0;
-            target.style.left = '100%';
-            target.style.display = 'none';
-        } else {
-            baseTarget.style.transition = "all .3s";
-            target.style.transition = "all .3s";
-            baseTarget.style.display = '-100%';
-            target.style.left = '0';
-            target.style.display = 'flex';
-            baseTarget.style.display = 'none'
-            target.style.height = `${window.screen.height}px`;
-            target.style.width = `${window.screen.width}px`;
-        }
+        // let change = startx - event.changedTouches[0].clientx;
+        // let threshold = window.screen.width / 3;
+        // let baseTarget = document.getElementById(`${event.target.id}`);
+        // let target = document.getElementById(`user${event.target.id.substring(5)}`)
+        // if (change < threshold) {
+        //     baseTarget.style.left = 0;
+        //     target.style.left = '100%';
+        //     target.style.display = 'none';
+        // } else {
+        //     baseTarget.style.transition = "all .3s";
+        //     target.style.transition = "all .3s";
+        //     baseTarget.style.display = '-100%';
+        //     target.style.left = '0';
+        //     target.style.display = 'flex';
+        //     baseTarget.style.display = 'none'
+        //     target.style.height = `${window.screen.height}px`;
+        //     target.style.width = `${window.screen.width}px`;
+        // }
     }
 
     const onUserTouchStarting = (event) => {
-        setStartx(event.touches[0].clientx);
-        let baseTarget = document.getElementById(`video${event.target.id.substring(4)}`);
-        let target = document.getElementById(`${event.target.id}`);
-        baseTarget.style.transition = '';
-        target.style.transition = '';
-        baseTarget.style.display = 'none'
+        // setStartx(event.touches[0].clientx);
+        // let baseTarget = document.getElementById(`video${event.target.id.substring(4)}`);
+        // let target = document.getElementById(`${event.target.id}`);
+        // baseTarget.style.transition = '';
+        // target.style.transition = '';
+        // baseTarget.style.display = 'none'
     }
 
     const onUserTouchMoving = (event) => {
-        let touch = event.touches[0];
-        let change = touch.clientx - startx;
-        let baseTarget = document.getElementById(`video${event.target.id.substring(4)}`);
-        let target = document.getElementById(`${event.target.id}`);
-        if (change < 0) {
-            return
-        }
-        baseTarget.style.display = 'block'
-        baseTarget.style.left = change - window.screen.width + 'px';
-        target.style.display = 'flex';
-        target.style.left = change + 'px';
+        // let touch = event.touches[0];
+        // let change = touch.clientx - startx;
+        // let baseTarget = document.getElementById(`video${event.target.id.substring(4)}`);
+        // let target = document.getElementById(`${event.target.id}`);
+        // if (change < 0) {
+        //     return
+        // }
+        // baseTarget.style.display = 'block'
+        // baseTarget.style.left = change - window.screen.width + 'px';
+        // target.style.display = 'flex';
+        // target.style.left = change + 'px';
     }
 
     const onUserTouchEnding = (event) => {
-        let change = event.changedTouches[0].clientx - startx;
-        let threshold = window.screen.width / 4;
-        let baseTarget = document.getElementById(`video${event.target.id.substring(4)}`);
-        let target = document.getElementById(`${event.target.id}`);
-        if (change < threshold) {
-            baseTarget.style.left = '-100%';
-            baseTarget.style.display = 'none';
-            target.style.left = 0;
-        } else {
-            baseTarget.style.transition = "all .3s";
-            target.style.transition = "all .3s";
-            baseTarget.style.left = 0;
-            target.style.left = '100%';
-            target.style.display = 'none';
-            baseTarget.style.display = 'block';
-        }
+        // let change = event.changedTouches[0].clientx - startx;
+        // let threshold = window.screen.width / 4;
+        // let baseTarget = document.getElementById(`video${event.target.id.substring(4)}`);
+        // let target = document.getElementById(`${event.target.id}`);
+        // if (change < threshold) {
+        //     baseTarget.style.left = '-100%';
+        //     baseTarget.style.display = 'none';
+        //     target.style.left = 0;
+        // } else {
+        //     baseTarget.style.transition = "all .3s";
+        //     target.style.transition = "all .3s";
+        //     baseTarget.style.left = 0;
+        //     target.style.left = '100%';
+        //     target.style.display = 'none';
+        //     baseTarget.style.display = 'block';
+        // }
     }
 
-    const { record : {id,
+    const { record: { id,
         video: { originalUrl },
-        channel},
-        getWidth,getHeight } = props;
+        channel },
+        getWidth, getHeight } = props;
 
     return (
         <div id="check">
@@ -102,7 +144,7 @@ function VideoDisplay(props){
                 onTouchStart={(event) => onUserTouchStarting(event)}
                 onTouchMove={(event) => onUserTouchMoving(event)}
                 onTouchEnd={(event => onUserTouchEnding(event))}>
-                {channel&& channel.user.name? channel.user.name : `#user`}
+                {channel && channel.user.name ? channel.user.name : `#user`}
             </div>
         </div>
     );

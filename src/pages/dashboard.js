@@ -58,11 +58,11 @@ function Dashboard() {
 
 useEffect(() => {
     window.addEventListener("resize", setHeightandWidth);
-    window.addEventListener("scroll", (event) => setScrollHeight(event));
+    //window.addEventListener("scroll", (event) => setScrollHeight(event));
 
     return () => {
         window.removeEventListener("resize", setHeightandWidth);
-        window.removeEventListener("scroll", () => { });
+       // window.removeEventListener("scroll", () => { });
     }
 })
 
