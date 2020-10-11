@@ -5,12 +5,12 @@ function VideoDisplay(props){
     const [startx, setStartx] = useState(0);
 
     const onTouchStarting = (event) => {
-        setStartx(event.touches[0].clientx);
+        setStartx(event.touches[0].clientX);
     }
 
     const onTouchMoving = (event) => {
         let touch = event.touches[0];
-        let change = touch.clientx - startx;
+        let change = startx-touch.clientX;
         let baseTarget = document.getElementById(`${event.target.id}`);
         let target = document.getElementById(`user${event.target.id.substring(5)}`)
         if (change < 0) {
@@ -22,7 +22,7 @@ function VideoDisplay(props){
     }
 
     const onTouchEnding = (event) => {
-        let change = startx - event.changedTouches[0].clientx;
+        let change = startx - event.changedTouches[0].clientX;
         let threshold = window.screen.width / 3;
         let baseTarget = document.getElementById(`${event.target.id}`);
         let target = document.getElementById(`user${event.target.id.substring(5)}`)
@@ -43,7 +43,7 @@ function VideoDisplay(props){
     }
 
     const onUserTouchStarting = (event) => {
-        setStartx(event.touches[0].clientx);
+        setStartx(event.touches[0].clientX);
         let baseTarget = document.getElementById(`video${event.target.id.substring(4)}`);
         let target = document.getElementById(`${event.target.id}`);
         baseTarget.style.transition = '';
@@ -53,7 +53,7 @@ function VideoDisplay(props){
 
     const onUserTouchMoving = (event) => {
         let touch = event.touches[0];
-        let change = touch.clientx - startx;
+        let change = touch.clientX - startx;
         let baseTarget = document.getElementById(`video${event.target.id.substring(4)}`);
         let target = document.getElementById(`${event.target.id}`);
         if (change < 0) {
@@ -66,7 +66,7 @@ function VideoDisplay(props){
     }
 
     const onUserTouchEnding = (event) => {
-        let change = event.changedTouches[0].clientx - startx;
+        let change = event.changedTouches[0].clientX - startx;
         let threshold = window.screen.width / 4;
         let baseTarget = document.getElementById(`video${event.target.id.substring(4)}`);
         let target = document.getElementById(`${event.target.id}`);
