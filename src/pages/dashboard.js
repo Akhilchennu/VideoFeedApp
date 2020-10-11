@@ -8,28 +8,49 @@ function Dashboard() {
     // const [getLastScrollTop, setLastScrollTop] = useState(0);
     // const [scrolled, setScroll] = useState(false);
     let scrolled=false;
-    let lastScrolled=window.pageYOffset || document.documentElement.scrollTop;;
-    let scrollHeight=0;
+    // let lastScrolled=window.pageYOffset || document.documentElement.scrollTop;;
+    // let scrollHeight=0;
 
     const setHeightandWidth = () => {
         setHeight(window.screen.height);
         setWidth(window.screen.width);
     }
 
-    const setScrollHeight = async (event) => {
+    // const setScrollHeight = async (event) => {
+    //     event.preventDefault();
+    //     if (!scrolled) {
+    //         scrolled=true;
+    //         let scrollToTop = window.pageYOffset || document.documentElement.scrollTop;
+    //         let lastScrollTop = 0;
+    //         if (scrollToTop > lastScrolled) {
+    //             lastScrollTop = scrollHeight + window.screen.height;
+    //         } else {
+    //             lastScrollTop = scrollHeight - window.screen.height;               
+    //         }
+    //         scrollHeight=lastScrollTop;
+    //         window.scrollTo(0, scrollHeight)
+    //         lastScrolled = scrollToTop <= 0 ? 0 : scrollToTop;
+    //         setTimeout(() => { if(scrolled) scrolled=false }, 500);
+    //         event.stopPropagation();
+    //     }
+    // }
+
+    let lastScrolled=(document.body.getBoundingClientRect()).top;
+    let scrollHeight=0;
+
+     const setScrollHeight = async (event) => {
         event.preventDefault();
         if (!scrolled) {
             scrolled=true;
-            let scrollToTop = window.pageYOffset || document.documentElement.scrollTop;
             let lastScrollTop = 0;
-            if (scrollToTop > lastScrolled) {
-                lastScrollTop = scrollHeight + window.screen.height;
+            if ((document.body.getBoundingClientRect()).top > lastScrolled) {
+                lastScrollTop = scrollHeight - window.screen.height;
             } else {
-                lastScrollTop = scrollHeight - window.screen.height;               
+                lastScrollTop = scrollHeight + window.screen.height;               
             }
             scrollHeight=lastScrollTop;
             window.scrollTo(0, scrollHeight)
-            lastScrolled = scrollToTop <= 0 ? 0 : scrollToTop;
+            lastScrolled = (document.body.getBoundingClientRect()).top;
             setTimeout(() => { if(scrolled) scrolled=false }, 500);
             event.stopPropagation();
         }
